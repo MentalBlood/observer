@@ -1,0 +1,10 @@
+opencv-python
+numpy
+tqdm
+multiprocessing
+mxnet
+torch
+pytorch_lightning
+argparse
+csv
+requests

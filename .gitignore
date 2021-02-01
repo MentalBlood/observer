@@ -1,0 +1,11 @@
+pairs_*
+*.html
+*.ipynb
+*.jpg
+*.rar
+*.log
+*.pyo
+faceexp-comparison-data-test-public
+.ipynb_checkpoints
+__pycache__
+*.json
