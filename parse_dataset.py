@@ -48,19 +48,19 @@ dataset_specific_api = getDatasetSpecificApi(dataset_specific_api_name, splited_
 
 
 
-# geting annotations data
-
-print('geting annotations data...')
-annotations_data = dataset_specific_api.getAnnotationsData(files)
-print('got')
-
-
-
 # creating objects iterator
 
 print('creating objects iterator...')
 objects = iter(Objects(files, dataset_specific_api.objects_extensions))
 print('created')
+
+
+
+# geting annotations data
+
+print('geting annotations data...')
+annotations_data = dataset_specific_api.getAnnotationsData(files)
+print('got')
 
 
 

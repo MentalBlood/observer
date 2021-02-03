@@ -61,10 +61,8 @@ def getMaxNumberFileName(dir_path):
 			continue
 	return result
 
-def calculateMetricsForImages(pairs, metrics, folder_where_to_write=None, threads=1, overwrite=False):
+def calculateMetricsForImages(pairs, metrics, folder_where_to_write, threads=1, overwrite=False):
 	metrics_names = list(metrics.keys())
-	if folder_where_to_write == None:
-		folder_where_to_write = 'pairs_' + '_'.join(metrics_names)
 	from_index = 0
 	if not os.path.exists(folder_where_to_write):
 		os.mkdir(folder_where_to_write)

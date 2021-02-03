@@ -127,7 +127,6 @@ def ndim_unnormed_distribution_on_flow(step):
 			trash_group_number = np.floor(np.true_divide(trash_symbol, step)).astype(int)
 			unique_groups_numbers, counts = np.unique(groups_numbers, return_counts=True)
 			trash_group_index = np.where(unique_groups_numbers == trash_group_number)[0][0]
-			# print('TRASH GROUP INDEX', trash_group_index)
 			unique_groups_numbers = np.delete(unique_groups_numbers, [trash_group_index])
 			counts = np.delete(counts, [trash_group_index])
 		else:
@@ -147,59 +146,22 @@ def ndim_unnormed_distribution_on_flow(step):
 		if len(new_data_and_pairs) > 1:
 			pairs = new_data_and_pairs[1]
 			limit = new_data_and_pairs[2]
-			### stupid version
-			# examples_already_found_for_group_number = {g: (len(curr[g]['examples']) == limit) for g in curr}
-			# if not (False in examples_already_found_for_group_number.values()):
-			# 	return curr
-			# for I in tqdm(np.ndindex(groups_numbers.shape), desc='searching for examples', total=groups_numbers.size):
-			# 	group_number = groups_numbers[I]
-			# 	if group_number in curr:
-			# 		if len(curr[group_number]['examples']) < limit:
-			# 			example = [pairs[i] for i in I]
-			# 			curr[group_number]['examples'].append(example)
-			# 			if len(curr[group_number]['examples']) == limit:
-			# 				examples_already_found_for_group_number[group_number] = True
-			# 				if not (False in examples_already_found_for_group_number.values()):
-			# 					return curr
-			###
-			### smart version
 			curr_iterator = tqdm(curr, desc='searching for examples') if log else curr
 			for group_number in curr_iterator:
 				examples_left = limit - len(curr[group_number]['examples'])
 				if examples_left != 0:
 					indexes = np.vstack(np.where(groups_numbers == group_number)).T
-
-					# objects_counts = {}
-					# for e in indexes:
-					# 	for i in e:
-					# 		if not (i in objects_counts):
-					# 			objects_counts[i] = 0
-					# 		objects_counts[i] += 1
-					# print('MAX IS', max(objects_counts.values()), 'from', indexes.size)
-
 					attempt = 0
 					while True:
 						attempt += 1
-						# print('attempt', attempt)
 						if indexes.shape[0] > 100 * examples_left:
-							# print('CHOICE')
 							required_indexes = indexes[np.random.choice(indexes.shape[0], examples_left, replace=False), :].tolist()
 						else:
-							# print('SHUFFLE')
 							np.random.shuffle(indexes)
 							required_indexes = indexes[:examples_left].tolist()
 						new_examples = [[pairs[i] for i in I] for I in required_indexes]
-						# objects_counts = {}
-						# for e in new_examples:
-						# 	for i in e:
-						# 		if not (i in objects_counts):
-						# 			objects_counts[i] = 0
-						# 		objects_counts[i] += 1
-						# if (max(objects_counts.values()) <= len(objects_counts) // 4) or (attempt == 10):
-						# 	break
 						break
 					curr[group_number]['examples'] += [[pairs[i] for i in I] for I in required_indexes]
-			###
 		return curr
 	return OnFlowMetric('distribution', {}, refresh, lambda curr: list(curr.values()))
 

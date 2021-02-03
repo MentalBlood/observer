@@ -170,10 +170,10 @@ def datasetMetrics(dataset_name, metric_name, log_plots = False, api = None, exa
 					print('Примеры изображений из кластера ' + cluster_id + ':')
 					example_pairs = [pairs[object_id] for object_id in metric['value'][cluster_id][:examples_amount]]
 					if len(example_pairs) > 0:
-						printPairsPaths(example_pairs)
+						showPairsImages(example_pairs)
 			elif metric['name'] == 'mean':
 				if metric_name == 'mean_histogram':
-					plt.hist(metric['value'], bins=len(metric['value']));
+					plt.plot(metric['value'], color='black')
 					plt.show()
 				else:
 					print('Среднее значение:', metric['value'])

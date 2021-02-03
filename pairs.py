@@ -187,21 +187,6 @@ class Pairs():
 				if applyFilter(f, pair, self.get_classes_function):
 					key = compiled_filters_as_strings[i]
 					indexes[key].append(number)
-		# # multithreaded version
-		# def whichFiltersMatch(pair_and_number):
-		# 	pair = pair_and_number[0]
-		# 	number = pair_and_number[1]
-		# 	result = []
-		# 	for i in range(len(compiled_filters_as_strings)):
-		# 		f = compiled_filters[i]
-		# 		if applyFilter(f, pair, self.get_classes_function):
-		# 			key = compiled_filters_as_strings[i]
-		# 			result.append((key, number))
-		# 	return result
-		# for result in tqdm(ThreadPool(24).imap_unordered(whichFiltersMatch, self), desc='Creating filters indexes'):
-		# 	for key, number in result:
-		# 		indexes[key].append(number)
-		# empty_indexes_keys = []
 		save_as_json(indexes, self.filters_indexes_file_path)
 		self.setReturnNames(False)
 
