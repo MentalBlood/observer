@@ -6,8 +6,6 @@ from files import getFiles
 from objects import *
 from dataset_specific_api import getDatasetSpecificApi
 
-
-
 # parsing command line args
 
 parser = argparse.ArgumentParser(description='Parse dataset and save pairs object-annotations')
@@ -32,40 +30,25 @@ dataset_specific_api_name = args.api or dataset_name
 overwrite = int(args.overwrite)
 splited = int(args.splited)
 
-
-
 # geting files
-
 print('geting files...')
 files = getFiles(dataset_folder)
 print('got', len(files), 'files')
 
-
-
 # geting dataset specific api
-
 dataset_specific_api = getDatasetSpecificApi(dataset_specific_api_name, splited_by_frames=splited)
 
-
-
 # creating objects iterator
-
 print('creating objects iterator...')
 objects = iter(Objects(files, dataset_specific_api.objects_extensions))
 print('created')
 
-
-
 # geting annotations data
-
 print('geting annotations data...')
 annotations_data = dataset_specific_api.getAnnotationsData(files)
 print('got')
 
-
-
 # creating pairs object-annotations
-
 if not os.path.exists(pairs_folder_path):
 	os.mkdir(pairs_folder_path)
 current_object_index = 0

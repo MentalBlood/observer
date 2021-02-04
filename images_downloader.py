@@ -6,7 +6,7 @@ from tqdm import tqdm
 from multiprocessing.pool import ThreadPool
 import argparse
 
-parser = argparse.ArgumentParser(description='Parse dataset and save pairs object-annotations')
+parser = argparse.ArgumentParser(description='Download images from links listed in JSON')
 parser.add_argument('--input', type=str,
                     help='json with links file path', default=None)
 parser.add_argument('--output', type=str,

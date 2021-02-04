@@ -5,11 +5,11 @@ from tqdm import tqdm
 from shutil import copyfile
 from multiprocessing.pool import ThreadPool
 
-parser = argparse.ArgumentParser(description='Parse dataset and save pairs object-annotations')
+parser = argparse.ArgumentParser(description='Convert dataset (expand videos to frames)')
 parser.add_argument('--input_dir', type=str,
-                    help='csv file path', default=None)
+                    help='input directory', default=None)
 parser.add_argument('--output_dir', type=str,
-                    help='links json file path', default=None)
+                    help='output directory', default=None)
 parser.add_argument('--threads', type=str,
                     help='number of threads', default='1')
 parser.add_argument('--identifier', type=str,
