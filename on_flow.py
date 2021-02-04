@@ -287,7 +287,7 @@ from dataset_specific_api import getDatasetSpecificApi
 
 # parsing command line args
 
-parser = argparse.ArgumentParser(description='Parse dataset and save pairs object-annotations')
+parser = argparse.ArgumentParser(description='Calculate on-flow metrics')
 parser.add_argument('--dataset', type=str,
                     help='dataset name', default=None)
 parser.add_argument('--api', type=str,

@@ -12,7 +12,7 @@ from dataset_specific_api import getDatasetSpecificApi
 
 # parsing command line args
 
-parser = argparse.ArgumentParser(description='Parse dataset and save pairs object-annotations')
+parser = argparse.ArgumentParser(description='Calculate objects metrics')
 parser.add_argument('--dataset', type=str,
                     help='dataset name', default=None)
 parser.add_argument('--api', type=str,
@@ -23,6 +23,8 @@ parser.add_argument('--overwrite', type=str,
                     help='overwrite existing pairs or not', default='0')
 parser.add_argument('--continue_calc', type=str,
                     help='continue first calculatinon', default='1')
+parser.add_argument('--metrics_file', type=str,
+                    help='metrics file name (without extension! must be in observer\'s folder)', default='default_metrics')
 args = parser.parse_args()
 
 dataset_name = args.dataset
@@ -30,6 +32,10 @@ dataset_specific_api_name = args.api or dataset_name
 threads = int(args.threads)
 overwrite = int(args.overwrite)
 continue_calc = int(args.continue_calc)
+metrics_file_path = args.metrics_file
+
+# importing metrics
+metrics = __import__(metrics_file_path).metrics
 
 # creating report object
 report_file_path = 'report_' + dataset_name + '.json'
@@ -63,19 +69,8 @@ if overwrite or (not os.path.exists(report_file_path)):
 # videos_number_by_class = countVideosInClasses(pairs, dataset_specific_api.getClasses)
 # report.write('videos number by class', videos_number_by_class)
 
-def getHistogram(image):
-	grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	return cv2.calcHist([grayscale], [0], None, [256], [0,256]).reshape(-1)
-
 # available metrics
-metrics = {
-	'hog': getHog,
-	'contrast': getImageContrast,
-	'height': lambda i: i.shape[0],
-	'width': lambda i: i.shape[1],
-	'width_height_ratio': lambda i: i.shape[1] / i.shape[0],
-	'histogram': getHistogram
-}
+
 
 # calculating metrics
 new_pairs_folder_path = 'pairs_' + dataset_name + '_new'
