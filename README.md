@@ -1,5 +1,7 @@
 # observer
 
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com) 
+
 ## Что это?
 
 Это программа и набор вспомогательных скриптов на языке Python для анализа датасетов
